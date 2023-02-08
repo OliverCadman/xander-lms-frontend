@@ -4,7 +4,10 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <h1>Hello</h1>
+    <>
+      <GlobalStyle />
+      <Login />
+    </>
   )
 }
 
