@@ -1,5 +1,10 @@
 import React, { useState, createRef, useEffect } from "react";
 import Banner from "../components/Banner";
+import AuthButton from "../components/AuthButton";
+
+import AppleLogo from "../assets/AppleLogo";
+import FacebookLogo from "../assets/FacebookLogo";
+import GoogleLogo from "../assets/GoogleLogo";
 
 import styled from "styled-components";
 
@@ -38,16 +43,32 @@ const StyledHeader = styled.h1`
 const StyledFormContainer = styled.div`
   display: grid;
   width: 100%;
-  column-gap: 1rem;
-  grid-template-columns: 1fr 1fr;
+  column-gap: 2.5rem;
+  grid-template-columns: 1fr 2px 1fr;
   padding: 1rem 0;
 `;
 
 const StyledFormWrapper = styled.div`
   width: 100%;
   text-align: center;
-  border: 1px solid black;
   font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+`
+
+const StyledSocialAuthWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const StyledPara = styled.p`
+  font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-shadow: -0.5px -0.5px #000000;
+  padding-bottom: 1.5rem;
+`
+const StyledLine = styled.div`
+  border-right: 0.5px solid black;
 `
 
 const Login = () => {
@@ -76,10 +97,22 @@ const Login = () => {
             </StyledHeader>
             <StyledFormContainer>
               <StyledFormWrapper>
-                Login Form Goes Here
+                <StyledPara>Login</StyledPara>
+                <StyledSocialAuthWrapper>
+                  <AuthButton socialMediaProvider={'Apple'} SocialMediaIcon={<AppleLogo />} />
+                  <AuthButton socialMediaProvider={'Google'} SocialMediaIcon={<GoogleLogo />} />
+                  <AuthButton socialMediaProvider={'Login'} SocialMediaIcon={<FacebookLogo />} />
+                </StyledSocialAuthWrapper>
+               
               </StyledFormWrapper>
+              <StyledLine></StyledLine>
               <StyledFormWrapper>
-                Signup Form Goes Here
+                <StyledPara>Signup</StyledPara>
+              <StyledSocialAuthWrapper>
+                <AuthButton socialMediaProvider={'Apple'} SocialMediaIcon={<AppleLogo />} />
+                <AuthButton socialMediaProvider={'Google'} SocialMediaIcon={<GoogleLogo />} />
+                <AuthButton socialMediaProvider={'Login'} SocialMediaIcon={<FacebookLogo />} />
+              </StyledSocialAuthWrapper>
               </StyledFormWrapper>
             </StyledFormContainer>
           </StyledHeaderWrapper>
