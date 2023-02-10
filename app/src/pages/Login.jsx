@@ -1,12 +1,18 @@
-import React, { useState, createRef, useEffect } from "react";
+import React, { useState, createRef, useEffect, useContext } from "react";
 import Banner from "../components/Banner";
 import AuthButton from "../components/AuthButton";
+import AuthForm from "../components/AuthForm";
 
 import AppleLogo from "../assets/AppleLogo";
 import FacebookLogo from "../assets/FacebookLogo";
 import GoogleLogo from "../assets/GoogleLogo";
 
 import styled from "styled-components";
+
+import { useAuth } from "../context/AuthContext";
+
+import { useLocation } from "react-router-dom";
+
 
 const StyledAuthContainer = styled.div`
   min-height: ${(props) => `calc(100vh - ${props.bannerHeight}px)`};
@@ -19,6 +25,7 @@ const StyledAuthWrapper = styled.div`
   width: 100%;
   max-width: 800px;
 `;
+
 const StyledHeaderWrapper = styled.header`
   display: flex;
   align-items: center;
@@ -73,7 +80,26 @@ const StyledLine = styled.div`
 
 const Login = () => {
   const [bannerHeight, setBannerHeight] = useState(null);
+  const [userDetails, setUserDetails] = useState({
+    email: '',
+    password: ''
+  })
   const bannerRef = createRef();
+
+  // Get Auth Context
+  const {login} = useAuth();
+
+  const location = useLocation();
+  console.log(location.state)
+
+  const handleInput = (e, field) => {
+    setUserDetails({...userDetails, [field]: e.target.value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(userDetails);
+  }
 
   useEffect(() => {
     const bannerRect = bannerRef.current.getBoundingClientRect();
@@ -103,7 +129,7 @@ const Login = () => {
                   <AuthButton socialMediaProvider={'Google'} SocialMediaIcon={<GoogleLogo />} />
                   <AuthButton socialMediaProvider={'Login'} SocialMediaIcon={<FacebookLogo />} />
                 </StyledSocialAuthWrapper>
-               
+                <AuthForm handleInput={handleInput} handleSubmit={handleSubmit}/>
               </StyledFormWrapper>
               <StyledLine></StyledLine>
               <StyledFormWrapper>
@@ -113,6 +139,7 @@ const Login = () => {
                 <AuthButton socialMediaProvider={'Google'} SocialMediaIcon={<GoogleLogo />} />
                 <AuthButton socialMediaProvider={'Login'} SocialMediaIcon={<FacebookLogo />} />
               </StyledSocialAuthWrapper>
+              <AuthForm isSignUp={true} />
               </StyledFormWrapper>
             </StyledFormContainer>
           </StyledHeaderWrapper>
