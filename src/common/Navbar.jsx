@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -58,9 +58,9 @@ const linkStyle = {
 
 
 
-const Navbar = () => {
+const Navbar = forwardRef((props, ref) => {
   return (
-    <StyledNavbarWrapper>
+    <StyledNavbarWrapper ref={ref}>
       <StyledNavItem>
         <StyledNavLinkList>
           <StyledNavLinkItem>
@@ -131,6 +131,7 @@ const Navbar = () => {
       <StyledNavItem></StyledNavItem>
     </StyledNavbarWrapper>
   );
-}
+})
+
 
 export default Navbar

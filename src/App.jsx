@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
+
 import GlobalStyle from './styles/global/globalStyle';
 
 import ProtectedRoute from './pages/ProtectedRoute';
@@ -23,20 +24,32 @@ function App() {
 }
 
 function InnerApp() {
-  const {token} = useAuth();
+  const {token, redirect} = useAuth();
+  const [navbarheight, setNavBarHeight] = useState(null);
+  const navref = createRef();
+  
+  useEffect(() => {
+    if (navref.current) {
+      const navheight = navref.current.getBoundingClientRect().height
+      setNavBarHeight(navheight)
+    } 
+  },[redirect])
   return (
      <>
       <GlobalStyle />
       <Routes>
-      <Route index element={<Login />} />
-        <Route path='/xander-learning' element={<SharedLayout />}>
+        <Route path='/xander-learning' element={<SharedLayout navref={navref} />}>
+
           <Route path='home' element={
             <ProtectedRoute token={token}>
-              <Home />
+              <Home navbarheight={navbarheight}/>
             </ProtectedRoute>
           } />
+
+          
+          </Route>
+        <Route index element={<Login />} />
           <Route path='modules' element = {<Modules />}></Route>
-        </Route>
       </Routes>
     </>
   )

@@ -3,7 +3,8 @@ import React, {
     useContext,
     useEffect,
     useMemo,
-    useState
+    useState,
+    createRef
 } from "react";
 
 import { authenticate } from "../auth/auth";
@@ -13,10 +14,10 @@ import {useNavigate} from 'react-router-dom';
 const AuthContext = createContext();
 
 export const AuthProvider = ({children, }) => {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState('123');
+    const [redirect, setRedirect] = useState(null);
 
     const ENDPOINT = 'user/token';
-
 
     const navigate = useNavigate();
 
@@ -24,20 +25,19 @@ export const AuthProvider = ({children, }) => {
         const auth = await authenticate(ENDPOINT, params);
         setToken(auth.token);
         if (token) {
-            navigate("/home");
+            setRedirect(true);
+            navigate("/xander-learning/home");
         } else {
             navigate("/")
         }
     }
 
-    useEffect(() => {
-        
-    }, [token])
-
     const memoedValue = useMemo(() => ({
         login,
-        token
-    }), [token])
+        token,
+        redirect
+    }), [token, redirect])
+
     return (
         <AuthContext.Provider value={memoedValue}>
             {children}
