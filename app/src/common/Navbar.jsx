@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -58,9 +58,9 @@ const linkStyle = {
 
 
 
-const Navbar = () => {
+const Navbar = forwardRef((props, ref) => {
   return (
-    <StyledNavbarWrapper>
+    <StyledNavbarWrapper ref={ref}>
       <StyledNavItem>
         <StyledNavLinkList>
           <StyledNavLinkItem>
@@ -72,21 +72,22 @@ const Navbar = () => {
             </Link>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <Link style={linkStyle} to='/xander-learning/platform'>
+            <a style={linkStyle} href='/xander-learning/platform'>
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faBookOpenReader}></FontAwesomeIcon>
               </StyledIconSpan>
               Lessons
-            </Link>
+            </a>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <Link style={linkStyle}>
+            <a style={linkStyle} href='/xander-learning/admin'>
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faRectangleList}></FontAwesomeIcon>
               </StyledIconSpan>
-              Test
-            </Link>
+              Build
+            </a>
           </StyledNavLinkItem>
+          
         </StyledNavLinkList>
       </StyledNavItem>
       <StyledNavItem>
@@ -131,6 +132,6 @@ const Navbar = () => {
       <StyledNavItem></StyledNavItem>
     </StyledNavbarWrapper>
   );
-}
+})
 
 export default Navbar
