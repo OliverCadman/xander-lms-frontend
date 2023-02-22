@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  background-color: #f8f9fa;
+}
+
+#main-heading{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  padding-top: 4px;
+}
+
+#theme-sel{
+  padding-left: 16px;
+  padding-bottom: 10px;
+  font-size :medium;
+  font-weight: 500;
+}
+
+#programming-langugae{
+  padding-left: 16px;
+  padding-bottom: 10px;
+  font-size: medium;
+  font-weight: 500;
+}
+
+
+
+
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.listItem:hover {
+  background: #e2e8f0;
+  cursor: pointer;
+} */
