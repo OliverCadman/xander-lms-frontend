@@ -3,10 +3,10 @@ import React from 'react';
 import {Outlet} from 'react-router-dom';
 import Navbar from './Navbar';
 
-const SharedLayout = () => {
+const SharedLayout = ({navRef}) => {
   return (
     <>
-      <Navbar />
+      <Navbar ref={navRef} />
       <Outlet />
     </>
   );

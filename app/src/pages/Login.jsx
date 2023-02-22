@@ -107,7 +107,7 @@ const Login = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <Banner ref={bannerRef} />
       <StyledAuthContainer bannerHeight={bannerHeight}>
         <StyledAuthWrapper>
@@ -145,7 +145,7 @@ const Login = () => {
           </StyledHeaderWrapper>
         </StyledAuthWrapper>
       </StyledAuthContainer>
-    </>
+    </div>
   );
 };
 
