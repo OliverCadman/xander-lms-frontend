@@ -19,7 +19,6 @@ export const AuthProvider = ({children, }) => {
 
     const ENDPOINT = 'user/token';
 
-
     const navigate = useNavigate();
 
     const login = async (params) => {

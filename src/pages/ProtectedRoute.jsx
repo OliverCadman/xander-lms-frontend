@@ -5,7 +5,6 @@ const ProtectedRoute = ({token, children}) => {
     if (!token) {
         return <Navigate to='/' state={{message: 'You must login.'}}/>
     }
-
   return children;
 }
 

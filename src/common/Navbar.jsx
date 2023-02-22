@@ -72,7 +72,7 @@ const Navbar = forwardRef((props, ref) => {
             </Link>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <Link style={linkStyle} to='/xander-learning/platform'>
+            <Link style={linkStyle} to='/xander-learning/modules'>
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faBookOpenReader}></FontAwesomeIcon>
               </StyledIconSpan>
@@ -80,7 +80,7 @@ const Navbar = forwardRef((props, ref) => {
             </Link>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <Link style={linkStyle}>
+            <Link style={linkStyle} to='/xander-learning/testing'>
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faRectangleList}></FontAwesomeIcon>
               </StyledIconSpan>
@@ -132,5 +132,6 @@ const Navbar = forwardRef((props, ref) => {
     </StyledNavbarWrapper>
   );
 })
+
 
 export default Navbar

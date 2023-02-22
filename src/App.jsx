@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+
 import GlobalStyle from './styles/global/globalStyle';
 
 import ProtectedRoute from './pages/ProtectedRoute';
@@ -10,6 +11,9 @@ import { useAuth } from './context/AuthContext';
 import {AuthProvider} from './context/AuthContext';
 
 import {Routes, Route} from 'react-router-dom';
+import Navbar from './common/Navbar';
+import Modules from './pages/Modules';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -30,8 +34,6 @@ function InnerApp() {
       setNavBarHeight(navheight)
     } 
   },[redirect])
-
-
   return (
      <>
       <GlobalStyle />
@@ -47,6 +49,7 @@ function InnerApp() {
           
           </Route>
         <Route index element={<Login />} />
+          <Route path='modules' element = {<Modules />}></Route>
       </Routes>
     </>
   )
