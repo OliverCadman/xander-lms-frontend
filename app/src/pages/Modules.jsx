@@ -9,9 +9,7 @@ const StyledAuthContainer = styled.div`
     column-gap: 60px; 
     grid-template-columns: repeat(3, 1fr);
     background-color: #e9d2c0;
-    max-height: 100%;
     font-family: "Roboto", sans-serif;
-    height:100%;
     padding-left: 1rem;
     `;
 
@@ -20,10 +18,7 @@ const StyledAuthContainer = styled.div`
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     background-color: #e9d2c0;
-    min-height: 100%;
-    max-height: 100%;
     margin: 0 auto;
-    height:100%;
   `;
   
   
@@ -33,12 +28,9 @@ const StyledAuthContainer = styled.div`
     flex-direction: column;
     font-family: "Roboto", sans-serif;
     text-align: center;
-    min-height: 100%;
     padding: 1rem 0;
     background-color: #e9d2c0;
     margin: 0 auto;
-    max-height: 100%;
-    height:100%;
   `;
   const StyledHeaderWrapper2 = styled.header`
   display: flex;
@@ -46,10 +38,7 @@ const StyledAuthContainer = styled.div`
   padding: 2rem 0;
   background-color: #e9d2c0;
   font-family: "Roboto", sans-serif;
-  min-height: 100%;
-  max-height: 100%;
   margin: 0 auto;
-  height:100%;
   position: relative;
 `;
 const StyledDropDownWrapper = styled.div`
@@ -75,8 +64,6 @@ const StyledHeader2 = styled.h2`
   align-items: center;
   padding: 2rem 0;
   background-color: #e9d2c0;
-  min-height: 100%;
-  max-height: 100%;
   width: 100%;
   
 `;

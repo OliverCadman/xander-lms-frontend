@@ -1,4 +1,5 @@
 import Dropdown from 'react-bootstrap/Dropdown';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function DropDownMenu() {
   return (
