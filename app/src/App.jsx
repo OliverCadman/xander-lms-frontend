@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import LearningPlatform from "./pages/LearningPlatform";
 import LessonBuilderLanding from "./pages/admin/LessonBuilderLanding";
+import Modules from "./pages/Modules";
+import Landing from "./judge0/components/Landing";
 
 import { useAuth } from "./context/AuthContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -14,7 +16,6 @@ import { AuthProvider } from "./context/AuthContext";
 import { Routes, Route } from "react-router-dom";
 
 import LessonBuilder from "./admin/LessonBuilder";
-
 
 function App() {
   return (
@@ -28,21 +29,20 @@ function InnerApp() {
   const [navHeight, setNavHeight] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
 
-  const { token } = useAuth();
+  const { token, redirect } = useAuth();
   const navRef = createRef();
   const headerRef = createRef();
 
   useEffect(() => {
     if (navRef.current) {
-          const navRectHeight = navRef.current.getBoundingClientRect().height;
-          setNavHeight(navRectHeight);
+      const navRectHeight = navRef.current.getBoundingClientRect().height;
+      setNavHeight(navRectHeight);
     }
     if (headerRef.current) {
-       const headerRectHeight =
-         headerRef.current.getBoundingClientRect().height;
-          setHeaderHeight(headerRectHeight);
+      const headerRectHeight = headerRef.current.getBoundingClientRect().height;
+      setHeaderHeight(headerRectHeight);
     }
-  }, [])
+  }, [redirect]);
 
   return (
     <>
@@ -61,7 +61,7 @@ function InnerApp() {
               path="home"
               element={
                 <ProtectedRoute token={token}>
-                  <Home />
+                  <Home navbarheight={navHeight} />
                 </ProtectedRoute>
               }
             />
@@ -83,13 +83,18 @@ function InnerApp() {
                 />
               }
             />
-            <Route path="admin/lesson-builder" element={
-                 <LessonBuilder
+            <Route path="modules" element={<Modules />} />
+            <Route path="test_suite" element={<Landing />} />
+            <Route
+              path="admin/lesson-builder"
+              element={
+                <LessonBuilder
                   headerRef={headerRef}
                   navHeight={navHeight}
                   headerHeight={headerHeight}
                 />
-            } />
+              }
+            />
           </Route>
           <Route index element={<Login />} />
         </Route>

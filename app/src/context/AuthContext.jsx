@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useState,
+  createRef,
 } from "react";
 
 import { post } from "../api/request";
@@ -13,9 +14,8 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(
-    "33a377f55fa5e5540a5f6dd7242445bfa95e96bf"
-  );
+  const [token, setToken] = useState("123");
+  const [redirect, setRedirect] = useState(null);
 
   const ENDPOINT = "user/token";
 
@@ -25,21 +25,22 @@ export const AuthProvider = ({ children }) => {
     const auth = await post(ENDPOINT, params);
     setToken(auth.token);
     if (token) {
+      setRedirect(true);
       navigate("/xander-learning/home");
     } else {
       navigate("/");
     }
   };
 
-  useEffect(() => {}, [token]);
-
   const memoedValue = useMemo(
     () => ({
       login,
       token,
+      redirect,
     }),
-    [token]
+    [token, redirect]
   );
+
   return (
     <AuthContext.Provider value={memoedValue}>{children}</AuthContext.Provider>
   );
