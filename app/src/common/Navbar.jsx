@@ -1,15 +1,23 @@
-import React, {forwardRef} from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { forwardRef } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faHouseCircleCheck, faBookOpenReader, faRectangleList} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouseCircleCheck,
+  faBookOpenReader,
+  faRectangleList,
+} from "@fortawesome/free-solid-svg-icons";
 
 const StyledNavbarWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
   background-color: #1c1c38;
   padding: 1.2875rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9;
 `;
 
 const StyledNavItem = styled.div`
@@ -24,7 +32,7 @@ const StyledNavItem = styled.div`
   &:last-child {
     margin-left: auto;
   }
-`
+`;
 
 const StyledSVG = styled.svg`
   width: 30%;
@@ -38,25 +46,23 @@ const StyledNavLinkList = styled.ul`
   display: flex;
   align-items: center;
   font-size: 1.1875rem;
-`
+`;
 
 const StyledNavLinkItem = styled.li`
   display: inline-block;
   margin: 0 2rem;
-`
+`;
 
 const StyledIconSpan = styled.span`
-  margin-right: .35rem;
+  margin-right: 0.35rem;
 `;
 
 const linkStyle = {
-  textDecoration: 'none',
-  color: '#fafafa',
-  fontFamily: 'Lato, sans-serif',
-  fontWeight: 300
-}
-
-
+  textDecoration: "none",
+  color: "#fafafa",
+  fontFamily: "Lato, sans-serif",
+  fontWeight: 300,
+};
 
 const Navbar = forwardRef((props, ref) => {
   return (
@@ -64,7 +70,7 @@ const Navbar = forwardRef((props, ref) => {
       <StyledNavItem>
         <StyledNavLinkList>
           <StyledNavLinkItem>
-            <Link style={linkStyle} to='/xander-learning/home'>
+            <Link style={linkStyle} to="/xander-learning/home">
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faHouseCircleCheck}></FontAwesomeIcon>
               </StyledIconSpan>
@@ -72,7 +78,7 @@ const Navbar = forwardRef((props, ref) => {
             </Link>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <a style={linkStyle} href='/xander-learning/platform'>
+            <a style={linkStyle} href="/xander-learning/platform">
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faBookOpenReader}></FontAwesomeIcon>
               </StyledIconSpan>
@@ -80,14 +86,13 @@ const Navbar = forwardRef((props, ref) => {
             </a>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <a style={linkStyle} href='/xander-learning/admin'>
+            <a style={linkStyle} href="/xander-learning/admin">
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faRectangleList}></FontAwesomeIcon>
               </StyledIconSpan>
               Build
             </a>
           </StyledNavLinkItem>
-          
         </StyledNavLinkList>
       </StyledNavItem>
       <StyledNavItem>
@@ -132,6 +137,6 @@ const Navbar = forwardRef((props, ref) => {
       <StyledNavItem></StyledNavItem>
     </StyledNavbarWrapper>
   );
-})
+});
 
-export default Navbar
+export default Navbar;

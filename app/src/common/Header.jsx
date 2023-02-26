@@ -4,14 +4,15 @@ import styled from 'styled-components';
 
 const StyledH1 = styled.h1`
     padding: 1rem 0 1rem 0.5rem;
-    font-family: 'Lato', sans-serif;
+    font-family: ${props => `${props.fontFamily}, sans-serif`};
+    color: ${props => props.color};
     font-weight: 700;
-    background-color: #fdfdfd;
+    font-size: 3rem;
 `
 
 const Header = forwardRef((props, ref) => {
   return (
-    <StyledH1 ref={ref}>{props.content}</StyledH1>
+    <StyledH1 ref={ref} fontFamily={props.fontFamily} color={props.color}>{props.content}</StyledH1>
   )
 })
 
