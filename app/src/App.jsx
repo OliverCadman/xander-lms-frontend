@@ -12,6 +12,7 @@ import Module from "./pages/Module";
 import Topic from "./pages/Topic";
 import Landing from "./judge0/components/Landing";
 import { useLocation } from "react-router-dom";
+import { loadKlipseScript } from "./helpers/LoadKlipseScript";
 
 import { useAuth } from "./context/AuthContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -25,6 +26,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
 function App() {
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>

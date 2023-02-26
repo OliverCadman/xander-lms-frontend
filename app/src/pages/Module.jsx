@@ -38,7 +38,7 @@ const StyledTopicWrapper = styled.div`
 `
 
 const Module = ({navHeight, headerHeight, headerRef}) => {
-  const { id } = useParams();
+  const { id: moduleID } = useParams();
   const { token } = useAuth();
   const location = useLocation();
 
@@ -47,7 +47,7 @@ const Module = ({navHeight, headerHeight, headerRef}) => {
       Authorization: `Token ${token}`,
     },
   };
-  const url = `${BASE_API_URL}/lessons/modules/${id}`;
+  const url = `${BASE_API_URL}/lessons/modules/${moduleID}`;
   const {data, isLoading, isError} = useQuery({
     queryKey:['modules'],
     queryFn: async () => {
@@ -84,6 +84,7 @@ const Module = ({navHeight, headerHeight, headerRef}) => {
                       <TopicCard
                         key={id}
                         id={id}
+                        moduleID={moduleID}
                         topicName={topic_name}
                         lessons={lessons}
                       />

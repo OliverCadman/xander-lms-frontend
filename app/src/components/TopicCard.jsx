@@ -51,7 +51,7 @@ const linkStyle = {
   textAlign: 'center'
 };
 
-const TopicCard = ({topicName, lessons, id}) => {
+const TopicCard = ({topicName, lessons, id, moduleID}) => {
   return (
     <StyledTopicCardWrapper>
       <StyledTopicCardHeader>{topicName}</StyledTopicCardHeader>
@@ -62,7 +62,7 @@ const TopicCard = ({topicName, lessons, id}) => {
             return <StyledListItem key={id}>{lesson_name}</StyledListItem>;
           })}
       </StyledTopicList>
-      <Link style={linkStyle} to={`topics/${id}`}>Begin Learning</Link>
+      <a style={linkStyle} href={`${moduleID}/topics/${id}`}>Begin Learning</a>
     </StyledTopicCardWrapper>
   );
 }

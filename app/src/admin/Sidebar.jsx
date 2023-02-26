@@ -13,12 +13,10 @@ const StyledSideBar = styled.nav`
 
 `
 
-const Sidebar = ({navHeight}) => {
+const Sidebar = ({navHeight, children}) => {
   return (
     <StyledSideBar navHeight={navHeight}>
-      <div>
-        Content
-      </div>
+      {children}
     </StyledSideBar>
   )
 }
