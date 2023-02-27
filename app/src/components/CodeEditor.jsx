@@ -1,14 +1,11 @@
 import React from 'react';
 
-const CodeEditor= () => {
+const CodeEditor= ({text}) => {
    return (
      <div
        className='language-klipse-eval-js'
      >
-     function hello ()&#123;
-     return 'Hello'
-     &#125;
-     hello();
+     {text}
      </div>
    );
 }

@@ -16,6 +16,8 @@ export const loadKlipseScript = (callback) => {
   }
   
       if (existingScript && callback) callback();
+
+      return true;
 }
 
 export const unloadKlipseScript = () => {

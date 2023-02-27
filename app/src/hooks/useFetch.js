@@ -2,7 +2,7 @@ import {useState, useEffect, useMemo} from 'react';
 import { get } from '../api/request';
 import axios from 'axios';
 
-const useFetch = (url, headers, postMade=null) => {
+const useFetch = (url, headers, normalRequest=null, postMade=null) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [data, setData] = useState([]);
@@ -11,7 +11,7 @@ const useFetch = (url, headers, postMade=null) => {
         setLoading(true);
         const source = axios.CancelToken.source();
         
-        if (postMade) {
+        if (postMade || normalRequest) {
             console.log('CALLING ENDPOINT')
             axios.get(url, headers)
             .then((res) => {

@@ -1,0 +1,88 @@
+#path-1 {
+    stroke-dasharray: 127;
+    stroke-dashoffset: 127;
+
+}
+
+#path-2 {
+    fill: none;
+    stroke-dasharray: 481;
+    stroke-dashoffset: 481;
+    /* stroke-dashoffset: 127; */
+    /* animation: fillpath 4s ease-in-out;
+    animation-fill-mode: forwards; */
+}
+
+
+
+#path-3 {
+    stroke-dasharray: 442;
+    stroke-dashoffset: 442;
+}
+
+#path-4 {
+    stroke-dasharray: 209;
+    stroke-dashoffset: 209;
+}
+
+#path-5 {
+    stroke-dasharray: 236;
+    stroke-dashoffset: 236;
+}
+
+#path-6 {
+    stroke-dasharray: 510;
+    stroke-dashoffset: 510;
+}
+
+#path-7 {
+    stroke-dasharray: 413;
+    stroke-dashoffset: 413;
+}
+
+#path-8 {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+}
+
+#polygon {
+    stroke-dasharray: 967;
+    stroke-dashoffset: 967;
+}
+
+
+
+#path-1, #path-2, #path-3, #path-4, #path-5, #path-6, #path-7, #path-8 {
+    fill: none;
+    animation: fillpath 1.5s ease;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    stroke-width: 0.1rem;
+}
+
+#polygon {
+    animation: fillpath 3s linear;
+    animation-iteration-count: infinite;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    stroke-width: 0.1rem;
+    fill: none;
+}
+
+
+
+@keyframes fillpath{
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes grow {
+    from {
+        transform: scaleY(0);
+       }
+
+    to {
+        transform: scaleY(1);
+    }
+}
