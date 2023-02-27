@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 globalThis.klipse_settings = {
   selector_eval_js: ".language-klipse-eval-js",
@@ -20,11 +20,10 @@ globalThis.klipse_settings = {
   editor_type: "code-mirror",
 };
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  /* </React.StrictMode> */
 );

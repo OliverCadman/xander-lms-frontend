@@ -44,7 +44,7 @@ const LessonBuilderLanding = ({navHeight, headerHeight}) => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState();
+  const [success, setSuccess] = useState(true);
 
   const { token } = useAuth();
 
@@ -56,7 +56,7 @@ const LessonBuilderLanding = ({navHeight, headerHeight}) => {
 
   const ENDPOINT = "lessons/languages/";
   const url = `${BASE_API_URL}/${ENDPOINT}`
-  const { data } = useFetch(url, headers, success);
+  const { data } = useFetch(url, headers, null, success);
   console.log(data);
 
   const inputRef = useRef();
@@ -92,7 +92,6 @@ const LessonBuilderLanding = ({navHeight, headerHeight}) => {
     } else {
       console.log('Request failed.')
     }
-
   }
 
   return (
