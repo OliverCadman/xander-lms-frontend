@@ -17,8 +17,7 @@ const Button = styled.button`
     `;
 
 const buttonStyles = {
-  backgroundColor: 'transparent',
-  color: '-webkit-linear-gradient(180deg, rgba(101,192,135,1) 0%, rgba(29,167,218,1) 100%)',
+  background: '-webkit-linear-gradient(180deg, rgba(101,192,135,1) 0%, rgba(29,167,218,1) 100%)',
   fontSize: '10rem',
   cursor: 'pointer',
   boxShadow: '0px 2px 2px lightgray',
