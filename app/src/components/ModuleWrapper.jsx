@@ -17,7 +17,7 @@ const ModuleWrapper = ({header, theme, id}) => {
   return (
 
     <StyledModuleWrapper>
-        <h2>{header}</h2>
+        <h4>{header}</h4>
         <ModuleButton id={id} theme={theme}></ModuleButton>
         <Progress_bar bgcolor = "#D9D9D9" progress = 'Not Started' height = {20}/>
     </StyledModuleWrapper>
