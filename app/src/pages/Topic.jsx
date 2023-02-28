@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import Sidebar from "../admin/Sidebar";
-import LessonWindow from "../components/LessonWindow";
 import Loading from "../components/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -12,6 +11,8 @@ import axios from "axios";
 
 import styled from "styled-components";
 
+import { Outlet } from "react-router-dom";
+
 const StyledContainer = styled.div`
   min-height: 100%;
   display: flex;
@@ -20,20 +21,23 @@ const StyledContainer = styled.div`
 `;
 
 const StyledLessonLinkList = styled.ul`
-    list-style-type: none;
-
-`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
 
 const StyledLessonLinkItem = styled.li`
-    margin: 2rem 0;
-    padding: 1rem;
+    font-family: 'Lato', sans-serif;
+    padding: 2rem 1rem;
+    background-color: ${props => {
+        return props.activeLessonID === props.id ? "#a8a8a8;" : ""; 
+    }}
+    color: ${props => props.activeLessonID === props.id ? '#fff': ''};
 `
 
 const Topic = ({ navHeight, lessons }) => {
-  const { id } = useParams();
+  const { topicID } = useParams();
   const { token } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [lesson, setLesson] = useState(null);
 
   const headers = {
     headers: {
@@ -41,7 +45,7 @@ const Topic = ({ navHeight, lessons }) => {
     },
   };
 
-  const url = `${BASE_API_URL}/lessons/topics/${id}`;
+  const url = `${BASE_API_URL}/lessons/topics/${topicID}`;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["lessons"],
     queryFn: async () => {
@@ -51,25 +55,8 @@ const Topic = ({ navHeight, lessons }) => {
     },
   });
 
-  useEffect(() => {
-    if (data) {
-        setLoading(true);
-        setCurrentLesson();
-        setLoading(false);
-    }
-  }, [data])
 
-  const setCurrentLesson = () => {
-    // By default, set the lesson with minimum ID number as first lesson.
-    // Lesson ordering is by ID!
-    setLoading(true);
-    const minID = Math.min(...data.lessons.map(lesson => lesson.id));
-    const currentLesson = data.lessons.filter((lesson) => lesson.id === minID);
-    setLesson(currentLesson);
-    setLoading(false);
-  }
-
-  if (loading || isLoading) {
+  if (isLoading) {
     return (
       <StyledContainer>
         <Loading />
@@ -82,15 +69,16 @@ const Topic = ({ navHeight, lessons }) => {
       <>
         <Sidebar navHeight={navHeight}>
           <StyledLessonLinkList>
-            {data.lessons.map((lesson) => {
+            {data && data.lessons.map((lesson) => {
               const { lesson_name, id } = lesson;
-
-              return <StyledLessonLinkItem key={id}>{lesson_name}</StyledLessonLinkItem>;
+                  return (
+                    <StyledLessonLinkItem key={id} id={id}>
+                      {lesson_name}
+                    </StyledLessonLinkItem>
+                  );
             })}
           </StyledLessonLinkList>
-        </Sidebar>
-        {lesson ?   <LessonWindow lesson={lesson} /> : '' }
-      
+        </Sidebar>      
       </>
     );
   }

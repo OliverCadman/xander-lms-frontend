@@ -38,7 +38,8 @@ const StyledTopicWrapper = styled.div`
 `
 
 const Module = ({navHeight, headerHeight, headerRef}) => {
-  const { id: moduleID } = useParams();
+  const { moduleID } = useParams();
+  console.log(useParams());
   const { token } = useAuth();
   const location = useLocation();
 
@@ -83,7 +84,7 @@ const Module = ({navHeight, headerHeight, headerRef}) => {
                     return (
                       <TopicCard
                         key={id}
-                        id={id}
+                        topicId={id}
                         moduleID={moduleID}
                         topicName={topic_name}
                         lessons={lessons}

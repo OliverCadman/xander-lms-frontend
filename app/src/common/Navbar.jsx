@@ -78,7 +78,7 @@ const Navbar = forwardRef((props, ref) => {
             </Link>
           </StyledNavLinkItem>
           <StyledNavLinkItem>
-            <a style={linkStyle} href="/xander-learning/platform">
+            <a style={linkStyle} href="/xander-learning/modules">
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faBookOpenReader}></FontAwesomeIcon>
               </StyledIconSpan>

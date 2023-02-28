@@ -51,18 +51,18 @@ const linkStyle = {
   textAlign: 'center'
 };
 
-const TopicCard = ({topicName, lessons, id, moduleID}) => {
+const TopicCard = ({topicName, lessons, topicId, moduleID}) => {
   return (
     <StyledTopicCardWrapper>
       <StyledTopicCardHeader>{topicName}</StyledTopicCardHeader>
       <StyledTopicList>
         {lessons &&
-          lessons.map((lesson) => {
+          lessons.map((lesson, index) => {
             const { id, lesson_name } = lesson;
             return <StyledListItem key={id}>{lesson_name}</StyledListItem>;
           })}
       </StyledTopicList>
-      <a style={linkStyle} href={`${moduleID}/topics/${id}`}>Begin Learning</a>
+      <a style={linkStyle} href={`${moduleID}/topics/${topicId}/lessons/${lessons[0].id}`}>Begin Learning</a>
     </StyledTopicCardWrapper>
   );
 }

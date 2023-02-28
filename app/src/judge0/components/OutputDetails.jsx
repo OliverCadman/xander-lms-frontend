@@ -1,12 +1,23 @@
 import React from "react";
 
+import styled from 'styled-components';
+
+const StyledOutputDetailsWrapper = styled.div`
+  min-height: 25%;
+  font-family: 'DM Serif Display', sans-serif;
+  color: #f2f2f0;
+  border-radius: 6px;
+  border: 2px solid #fafafa;
+  padding: 1rem;
+`
+
 const OutputDetails = ({ outputDetails }) => {
   return (
-    <>
-    <h1 className='font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 mb-2'>
+    <StyledOutputDetailsWrapper>
+    <h1>
       Test Status:
     </h1>
-      <div className='w-full h-full bg-[#212529] rounded-md text-white font-normal text-sm overflow-y-auto'>
+      <div>
       <p className="text-sm">
         Status:{" "}
         <span>
@@ -32,43 +43,10 @@ const OutputDetails = ({ outputDetails }) => {
         </span>
       </p>
       </div>
-      </>
+      </StyledOutputDetailsWrapper>
   );
 };
 
 export default OutputDetails;
 
 
-
-
-
-{/* <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-{outputDetails?.status?.description}
-</span> */}
-
-// <div className="metrics-container mt-4 flex flex-col space-y-3">
-      // <p className="text-sm">
-      //   Status:{" "}
-      //   <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-      //     {outputDetails?.status?.description}
-      //   </span>
-      // </p>
-      // <p className="text-sm">
-      //   Memory:{" "}
-      //   <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-      //     {outputDetails?.memory}
-      //   </span>
-      // </p>
-      // <p className="text-sm">
-      //   Time:{" "}
-      //   <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-      //     {outputDetails?.time}
-      //   </span>
-      // </p>
-      // <p className="text-sm">
-      //   Expected Output:{" "}
-      //   <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-      //     {outputDetails?.expected_output}
-      //   </span>
-      // </p>
-//     </div>

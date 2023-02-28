@@ -3,17 +3,17 @@ import GlobalStyle from "./styles/global/globalStyle";
 
 import ProtectedRoute from "./pages/ProtectedRoute";
 import SharedLayout from "./common/SharedLayout";
+import SharedLayoutLesson from "./common/SharedLayoutLesson";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import LearningPlatform from "./pages/LearningPlatform";
 import LessonBuilderLanding from "./pages/admin/LessonBuilderLanding";
 import Modules from "./pages/Modules";
 import Module from "./pages/Module";
-import Topic from "./pages/Topic";
-import Landing from "./judge0/components/Landing";
-import { useLocation } from "react-router-dom";
-import { loadKlipseScript } from "./helpers/LoadKlipseScript";
+import LessonWindow from "./components/LessonWindow";
 
+import { useLocation } from "react-router-dom";
+import {ToastContainer} from 'react-toastify';
 import { useAuth } from "./context/AuthContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -39,7 +39,6 @@ function App() {
 function InnerApp() {
   const [navHeight, setNavHeight] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
-  console.log(navHeight)
 
   const { token, redirect } = useAuth();
   const navRef = createRef();
@@ -60,7 +59,8 @@ function InnerApp() {
 
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle navHeight={navHeight} />
+      <ToastContainer />
       <Routes>
         <Route path="/">
           <Route
@@ -80,14 +80,6 @@ function InnerApp() {
               }
             />
             <Route
-              path="platform"
-              element={
-                <ProtectedRoute token={token}>
-                  <LearningPlatform />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="admin"
               element={
                 <LessonBuilderLanding
@@ -98,9 +90,22 @@ function InnerApp() {
               }
             />
             <Route path="modules" element={<Modules navHeight={navHeight} />} />
-            <Route path="modules/:id" element={<Module navHeight={navHeight} headerRef={headerRef} headerHeight={headerHeight} />} />
-            <Route path="modules/:id/topics/:id" element={<Topic navHeight={navHeight} />}></Route>
-            <Route path="test_suite" element={<Landing />} />
+            <Route
+              path="modules/:moduleID"
+              element={
+                <Module
+                  navHeight={navHeight}
+                  headerRef={headerRef}
+                  headerHeight={headerHeight}
+                />
+              }
+            />
+            <Route
+              path="modules/:moduleID/topics/:topicID/lessons/*"
+              element={<SharedLayoutLesson navHeight={navHeight} />}
+            >
+                <Route path=":lessonID" element={<LessonWindow />} />
+            </Route>
             <Route
               path="admin/lesson-builder"
               element={
