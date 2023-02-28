@@ -2,14 +2,25 @@ import React from 'react';
 import ModuleButton from './ModuleButton';
 import Progress_bar from './Progress_bar';
 
+import styled from 'styled-components';
+
+const StyledModuleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  border: 2px solid black;
+  margin: 1.5rem 0;
+`
 const ModuleWrapper = ({header, theme, id}) => {
   return (
 
-    <div>
+    <StyledModuleWrapper>
         <h2>{header}</h2>
         <ModuleButton id={id} theme={theme}></ModuleButton>
-        <Progress_bar bgcolor = "#ffffe0" progress = 'Not Started' height = {20} />
-    </div>
+        <Progress_bar bgcolor = "#D9D9D9" progress = 'Not Started' height = {20}/>
+    </StyledModuleWrapper>
   )
 }
 

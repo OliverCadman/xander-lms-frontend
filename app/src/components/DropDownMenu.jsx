@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function DropDownMenu() {
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="danger" id="dropdown-basic">
+      <Dropdown.Toggle variant="secondary" id="dropdown-basic">
         Select a topic to learn  
       </Dropdown.Toggle>
 

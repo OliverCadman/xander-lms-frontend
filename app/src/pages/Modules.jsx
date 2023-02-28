@@ -18,68 +18,55 @@ const StyledLoadingWrapper = styled.div`
 `;
 
 const StyledMainContainer = styled.section`
-  height: ${(props) => `calc(100vh - ${props.navHeight}px)`};
+  min-height: ${(props) => `calc(100vh - ${props.navHeight}px)`};
   background-color: #e9d2c0;
 `;
 
 const StyledModuleContainer = styled.div`
     display: grid;
     column-gap: 60px; 
-    grid-template-columns: repeat(auto-fill, 300px);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-template-rows: 1fr;
+    font-weight: 500;
+    place-items: center;
+    align-items: center;
     font-family: "Roboto", sans-serif;
-    padding-left: 1rem;
+    border-top: 1px solid black;
+    border-bottom: 2px solid black;
+    padding-left: 2rem;
+    box-sizing: border-box;
+    border-radius: 1.5px;
     `;
 
-const StyledHeader = styled.h1`
-  font-size: 1.5rem;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  background-color: #e9d2c0;
-  margin: 0 auto;
-`;
-
 const StyledHeaderWrapper = styled.header`
-  font-family: "Roboto", sans-serif;
-  text-align: center;
-  padding: 1rem 0;
-  background-color: #e9d2c0;
-  margin: 0 auto;
-`;
-const StyledHeaderWrapper2 = styled.header`
   display: flex;
   align-items: center;
-  padding: 2rem 0;
   background-color: #e9d2c0;
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
   position: relative;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 1.5px;
+  height: 100%;
+  position: relative;
 `;
-const StyledDropDownWrapper = styled.div`
-  display: flex;
-  align-items: left;
-  place-items: centre;
-  flex-direction: grid;
-  justify-content: centre;
-  text-align: left;
-  margin: 10px 5px;
-  background-color: #e9d2c0;
+
+const StyledHeader = styled.h2`
+  font-size: 2.5rem;
   font-family: "Roboto", sans-serif;
-  margin-left: 2rem;
-  position: absolute;
-  top: 50%;
-`;
-const StyledHeader2 = styled.h2`
-  font-size: 3rem;
-  font-family: "Roboto", sans-serif;
-  font-weight: 900;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  padding: 2rem 0;
+  font-weight: 500;
+  padding: 1.2rem;
   background-color: #e9d2c0;
   width: 100%;
+  flex: 1;
+  text-align: center;
 `;
+
+const StyledH1Wrapper = styled.div`
+  flex: 1;
+`
+
 const Modules = ({ navHeight }) => {
   const url = `${BASE_API_URL}/lessons/modules`;
   const headers = {
@@ -107,22 +94,16 @@ const Modules = ({ navHeight }) => {
         <h1>Error....</h1>
       ) : (
         <>
-          <StyledHeaderWrapper2>
-            <StyledDropDownWrapper>
-              <DropDownMenu></DropDownMenu>
-            </StyledDropDownWrapper>
-            <StyledHeader2>Modules</StyledHeader2>
-          </StyledHeaderWrapper2>
           <StyledHeaderWrapper>
-            <StyledHeader>
-              Select a JavaScript module and start learning today:
-            </StyledHeader>
+            <StyledH1Wrapper>
+            <StyledHeader>Modules</StyledHeader>
+            </StyledH1Wrapper>
           </StyledHeaderWrapper>
-
           <StyledModuleContainer>
             {data.map((module, index, Progress_bar) => {
               const { module_name, id } = module;
               return (
+               
                 <ModuleWrapper
                   theme="blue"
                   id={id}

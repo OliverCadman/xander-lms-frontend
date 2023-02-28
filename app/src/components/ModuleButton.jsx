@@ -6,30 +6,22 @@ import styled from 'styled-components';
 
 const Button = styled.button`
     background-color: transparent;
-    color: #202020;
-    padding: 10px 10px;
+    padding: 10px 60px;
     place-items: center;
     border-radius: 50%;
     align-items: centre;
     justify-content: centre;
-    text-transform: uppercase;
-    margin: 40px 50px;
-    font-size: 5rem;
     cursor: pointer;
+    color: white;
     box-shadow: 0px 2px 2px lightgray;
-    border: none;
-    outline: none;
     `;
 
 const buttonStyles = {
   backgroundColor: 'transparent',
-  color: '#202020',
-  padding: '10px',
-  fontSize: '5rem',
+  color: '-webkit-linear-gradient(180deg, rgba(101,192,135,1) 0%, rgba(29,167,218,1) 100%)',
+  fontSize: '10rem',
   cursor: 'pointer',
   boxShadow: '0px 2px 2px lightgray',
-  border: 'none',
-  outline: 'none'
 }
 
 const ModuleButton = ({theme, id}) => {
