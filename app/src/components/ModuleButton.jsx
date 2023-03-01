@@ -3,7 +3,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
 const Button = styled.button`
     background-color: transparent;
     padding: 10px 60px;
@@ -23,11 +22,11 @@ const buttonStyles = {
   boxShadow: '0px 2px 2px lightgray',
 }
 
-const ModuleButton = ({theme, id}) => {
-  console.log(id)
-  return (
-    <Link to={`${id}`} theme={theme} style={buttonStyles}><span><FontAwesomeIcon icon={faPlayCircle}/></span></Link>
-  )
-}
+// const ModuleButton = ({theme, id}) => {
+//   console.log(id)
+//   return (
+//     <Link to={`${id}`} <img< src = ./img></Link>
+//   )
+// }
 
-export default ModuleButton
+// export default ModuleButton

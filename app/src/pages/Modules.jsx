@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Progress_bar from "../components/Progress_bar";
 import ModuleWrapper from "../components/ModuleWrapper";
-import DropDownMenu from "../components/DropDownMenu";
 import Loading from "../components/Loading";
 
 import { useQuery } from "@tanstack/react-query";
@@ -25,17 +24,21 @@ const StyledMainContainer = styled.section`
 const StyledModuleContainer = styled.div`
     display: grid;
     column-gap: 60px; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+    padding: 6rem;
+    padding-top: 0rem;
+    padding-bottom: 0.2rem;
     grid-template-rows: 1fr;
-    font-weight: 500;
+    font-weight: 300;
+    font-size: 300;
     place-items: center;
     align-items: center;
     font-family: "Roboto", sans-serif;
     border-top: 1px solid black;
     border-bottom: 2px solid black;
-    padding-left: 2rem;
     box-sizing: border-box;
-    border-radius: 1.5px;
+    border-radius: 2px;
+    min-width: fit-content;
     `;
 
 const StyledHeaderWrapper = styled.header`
@@ -48,24 +51,43 @@ const StyledHeaderWrapper = styled.header`
   border: 1px solid black;
   box-sizing: border-box;
   border-radius: 1.5px;
+  min-width: fit-content;
   height: 100%;
   position: relative;
 `;
 
-const StyledHeader = styled.h2`
-  font-size: 2.5rem;
+const StyledBorderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #e9d2c0;
   font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  padding: 1.2rem;
+  margin: 0 auto;
+  border: 1px solid black;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 1.5px;
+  position: relative;
+  max-width: fit-content;
+`;
+
+const StyledHeader = styled.h2`
+  font-size: 2.0rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
   background-color: #e9d2c0;
   width: 100%;
   flex: 1;
   text-align: center;
 `;
 
+const StyledModulesImage = styled.img`
+  height: 110% !important;
+`;
+
 const StyledH1Wrapper = styled.div`
   flex: 1;
 `
+;
 
 const Modules = ({ navHeight }) => {
   const url = `${BASE_API_URL}/lessons/modules`;
@@ -94,27 +116,29 @@ const Modules = ({ navHeight }) => {
         <h1>Error....</h1>
       ) : (
         <>
+        <br></br>
+        <br></br>
+        <br></br>
+        <StyledBorderWrapper></StyledBorderWrapper>
           <StyledHeaderWrapper>
             <StyledH1Wrapper>
             <StyledHeader>Modules</StyledHeader>
             </StyledH1Wrapper>
           </StyledHeaderWrapper>
           <StyledModuleContainer>
-            {data.map((module, index, Progress_bar) => {
-              const { module_name, id } = module;
+            {data.map((module, image, Progress_bar) => {
+              const { module_name} = module;
               return (
-               
                 <ModuleWrapper
                   theme="blue"
-                  id={id}
                   header={module_name}
-                  key={index}
+                  key = {image}
                   progress={Progress_bar}
                 />
               );
             })}
-          </StyledModuleContainer>
-        </>
+               </StyledModuleContainer>
+      </>
       )}
     </StyledMainContainer>
   );
