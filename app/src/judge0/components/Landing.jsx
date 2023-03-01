@@ -11,15 +11,18 @@ import useKeyPress from "../hooks/useKeyPress";
 import OutputWindow from "./OutputWindow";
 import OutputDetails from "./OutputDetails";
 import TestQuestions from "./TestQuestions";
+import Loading from "../../components/Loading";
 import { testquestions } from "../testquestions/testquestions";
 
 import styled from "styled-components";
 
 import { Buffer } from "buffer";
 
+
 import { useQuery } from "@tanstack/react-query";
 import { BASE_API_URL } from "../../api/request";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const StyledEditorContainer = styled.div`
   margin-left: 300px;
@@ -104,8 +107,7 @@ const Landing = () => {
       headers: {
         "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "X-RapidAPI-Key": "ba58fdc041mshaaca3ef8cb08737p19252ejsnf762f731c60b",
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
       },
       data: formData,
     };
@@ -136,8 +138,7 @@ const Landing = () => {
       url: "https://judge0-ce.p.rapidapi.com/submissions" + "/" + token,
       params: { base64_encoded: "true", fields: "*" },
       headers: {
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "X-RapidAPI-Key": "ba58fdc041mshaaca3ef8cb08737p19252ejsnf762f731c60b",
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
       },
     };
     try {
@@ -188,7 +189,15 @@ const Landing = () => {
   };
 
   const { exerciseID } = useParams();
+  const { token } = useAuth();
 
+  const headers = {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  }
+
+  const url = `${BASE_API_URL}/lessons/exercises/${exerciseID}`
   const { data, isLoading, isError } = useQuery({
     queryKey: ["exercise"],
     queryFn: async () => {
@@ -197,6 +206,12 @@ const Landing = () => {
       });
     },
   });
+
+  if (isLoading) {
+    return (
+
+    )
+  }
 
   return (
     <>
