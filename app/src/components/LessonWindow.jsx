@@ -84,7 +84,7 @@ const continueLinkStyles = {
   transition: "500ms all ease-in-out",
   width: "50%",
   textDecoration: "none",
-  textAlign: 'center'
+  textAlign: "center",
 };
 
 const StyledIconSpan = styled.span`
@@ -94,7 +94,7 @@ const StyledIconSpan = styled.span`
 const LessonWindow = ({ nextLessonName, getLessonID }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  const { lessonID } = useParams();
+  const { lessonID, moduleID } = useParams();
 
   const { token } = useAuth();
 
@@ -170,19 +170,23 @@ const LessonWindow = ({ nextLessonName, getLessonID }) => {
           })}
         </article>
         <StyledButtonWrapper>
-          <StyledFooterParagraph>{
-            nextLessonName !== 'Move onto the next section' ? (
-                    `Next up: ${nextLessonName}`
-            ) : (
-                'Move onto the next section.'
-            )
-          }</StyledFooterParagraph>
-          <a style={continueLinkStyles} href={`${parseInt(lessonID) + 1}`}>
-            Continue
-            <StyledIconSpan>
-              <FontAwesomeIcon icon={faChevronCircleRight} />
-            </StyledIconSpan>
-          </a>
+          <StyledFooterParagraph>
+            {nextLessonName !== "Move onto the next section"
+              ? `Next up: ${nextLessonName}`
+              : "Move onto the next section."}
+          </StyledFooterParagraph>
+          {nextLessonName !== "Move onto the next section" ? (
+            <a style={continueLinkStyles} href={`${parseInt(lessonID) + 1}`}>
+              Continue
+              <StyledIconSpan>
+                <FontAwesomeIcon icon={faChevronCircleRight} />
+              </StyledIconSpan>
+            </a>
+          ) : (
+            <a style={continueLinkStyles} href={`/xander-learning/modules/${moduleID}`}>
+              Back to Modules
+            </a>
+          )}
         </StyledButtonWrapper>
       </StyledLessonContainer>
     );
