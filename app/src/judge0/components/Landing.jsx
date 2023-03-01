@@ -106,8 +106,7 @@ const Landing = () => {
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "content-type": "application/json",
-        "Content-Type": "application/json",
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
+        "Content-Type": "application/json"
       },
       data: formData,
     };
@@ -137,9 +136,6 @@ const Landing = () => {
       method: "GET",
       url: "https://judge0-ce.p.rapidapi.com/submissions" + "/" + token,
       params: { base64_encoded: "true", fields: "*" },
-      headers: {
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
-      },
     };
     try {
       let response = await axios.request(options);
