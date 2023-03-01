@@ -84,17 +84,18 @@ const continueLinkStyles = {
   transition: "500ms all ease-in-out",
   width: "50%",
   textDecoration: "none",
-  textAlign: "center",
+  textAlign: 'center'
 };
 
 const StyledIconSpan = styled.span`
   margin-left: 1rem;
 `;
 
-const LessonWindow = ({ nextLessonName, getLessonID }) => {
+const LessonWindow = ({ nextLessonName, getLessonID, activeExerciseID }) => {
+
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  const { lessonID, moduleID } = useParams();
+  const { lessonID, moduleID, topicID } = useParams();
 
   const { token } = useAuth();
 
@@ -175,18 +176,28 @@ const LessonWindow = ({ nextLessonName, getLessonID }) => {
               ? `Next up: ${nextLessonName}`
               : "Move onto the next section."}
           </StyledFooterParagraph>
-          {nextLessonName !== "Move onto the next section" ? (
+          { nextLessonName && nextLessonName.includes("Exercise") ? (
+            <a style={continueLinkStyles} href={`/xander-learning/modules/${moduleID}/topics/${topicID}/lessons/exercises/${activeExerciseID}`}>
+              Continue
+              <StyledIconSpan>
+                <FontAwesomeIcon icon={faChevronCircleRight} />
+              </StyledIconSpan>
+            </a>
+          ) : nextLessonName !== "Move onto the next section" ? (
             <a style={continueLinkStyles} href={`${parseInt(lessonID) + 1}`}>
               Continue
               <StyledIconSpan>
                 <FontAwesomeIcon icon={faChevronCircleRight} />
               </StyledIconSpan>
             </a>
-          ) : (
+          ) : nextLessonName === "Move onto the next section" ? (
             <a style={continueLinkStyles} href={`/xander-learning/modules/${moduleID}`}>
-              Back to Modules
+              Go Back to Modules
+              <StyledIconSpan>
+                <FontAwesomeIcon icon={faChevronCircleRight} />
+              </StyledIconSpan>
             </a>
-          )}
+          ) : ''}
         </StyledButtonWrapper>
       </StyledLessonContainer>
     );

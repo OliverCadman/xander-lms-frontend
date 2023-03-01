@@ -1,6 +1,3 @@
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import React, { useEffect, useState } from "react";
 import CodeEditorWindow from "./CodeEditorWindow";
 import axios from "axios";
@@ -19,6 +16,10 @@ import { testquestions } from "../testquestions/testquestions";
 import styled from "styled-components";
 
 import { Buffer } from "buffer";
+
+import { useQuery } from "@tanstack/react-query";
+import { BASE_API_URL } from "../../api/request";
+import { useParams } from "react-router-dom";
 
 const StyledEditorContainer = styled.div`
   margin-left: 300px;
@@ -58,7 +59,6 @@ const javascriptDefault = ``;
 
 const Landing = () => {
   const [code, setCode] = useState(javascriptDefault);
-  // const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState("cobalt");
@@ -97,8 +97,6 @@ const Landing = () => {
       expected_output: Buffer.from(expected_output).toString("base64"),
     };
 
-    console.log('formData:', formData)
-
     const options = {
       method: "POST",
       url: "https://judge0-ce.p.rapidapi.com/submissions/",
@@ -126,12 +124,9 @@ const Landing = () => {
         let status = err.response.status;
 
         if (status === 429) {
-
-
           showErrorToast(`Read Documentation`, 10000);
         }
         setProcessing(false);
-
       });
   };
 
@@ -191,6 +186,17 @@ const Landing = () => {
       progress: undefined,
     });
   };
+
+  const { exerciseID } = useParams();
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["exercise"],
+    queryFn: async () => {
+      return axios.get(url, headers).then((res) => {
+        return res.data;
+      });
+    },
+  });
 
   return (
     <>

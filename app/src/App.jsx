@@ -6,7 +6,7 @@ import SharedLayout from "./common/SharedLayout";
 import SharedLayoutLesson from "./common/SharedLayoutLesson";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import LearningPlatform from "./pages/LearningPlatform";
+import Landing from "./judge0/components/Landing";
 import LessonBuilderLanding from "./pages/admin/LessonBuilderLanding";
 import Modules from "./pages/Modules";
 import Module from "./pages/Module";
@@ -39,6 +39,7 @@ function InnerApp() {
   const [navHeight, setNavHeight] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [activeLessonID, setActiveLessonID] = useState(null);
+  const [activeExerciseID, setActiveExerciseID] = useState(null);
   const [nextLessonName, setNextLessonName] = useState(null);
 
   const { token, redirect } = useAuth();
@@ -54,24 +55,31 @@ function InnerApp() {
    };
 
    const getNextLessonName = (lessonData) => {
-     console.log(lessonData);
+  
      // Retrieve name of next lesson to display in Lesson Window
      let lessonName;
-     const maxID = Math.max(...lessonData.lessons.map((lesson) => lesson.id));
+     if (lessonData) {
+           const maxID = Math.max(...lessonData.lessons.map((lesson) => lesson.id));
+           const maxExerciseID = Math.max(...lessonData.topic_exercises.map((exercise) => exercise.id));
 
      if (activeLessonID < maxID) {
        const nextLessonDetails = lessonData.lessons.find(
          (lesson) => lesson.id === parseInt(activeLessonID) + 1
        );
-       lessonName = nextLessonDetails.lesson_name;
+
+       if (nextLessonDetails) lessonName = nextLessonDetails.lesson_name;
+
+     } else if (maxID) {
+       const exerciseDetails = lessonData.topic_exercises.find(exercise => exercise.id === maxExerciseID);
+       if (exerciseDetails) lessonName = exerciseDetails.exercise_name;
+  
      } else {
        lessonName = "Move onto the next section";
      }
-
+     setActiveExerciseID(maxExerciseID);
      setNextLessonName(lessonName);
+     }
    }
-
-   
 
   useEffect(() => {
     if (navRef.current) {
@@ -139,7 +147,22 @@ function InnerApp() {
             >
               <Route
                 path=":lessonID"
-                element={<LessonWindow getLessonID={getLessonID} nextLessonName={nextLessonName }/>}
+                element={
+                  <LessonWindow
+                    getLessonID={getLessonID}
+                    nextLessonName={nextLessonName}
+                    activeExerciseID={activeExerciseID}
+                  />
+                }
+              />
+              <Route
+                path="exercises/:exerciseID"
+                element={
+                  <Landing
+                    getLessonID={getLessonID}
+                    nextLessonName={nextLessonName}
+                  />
+                }
               />
             </Route>
             <Route

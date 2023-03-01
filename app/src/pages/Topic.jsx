@@ -28,13 +28,13 @@ const StyledLessonLinkItem = styled.li`
     font-family: 'Lato', sans-serif;
     padding: 2rem 1rem;
     background-color: ${(props) => {
-      return parseInt(props.activeLessonID) === props.id ? "#e9d2c060;" : "";
+      return parseInt(props.activeLessonID) === props.id ? "#e9d2c030;" : "";
     }}
-    box-shadow: inset 2px 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 2px 0 5px 0 rgba(0, 0, 0, 0.5);
     color: ${(props) => (props.activeLessonID === props.id ? "#fff" : "")};
 `;
 
-const Topic = ({ navHeight, activeLessonID, getNextLessonName }) => {
+const Topic = ({ navHeight, activeLessonID, getNextLessonName, getExerciseIDs }) => {
   const { topicID } = useParams();
   const { token } = useAuth();
 
@@ -54,6 +54,13 @@ const Topic = ({ navHeight, activeLessonID, getNextLessonName }) => {
     },
   });
 
+
+
+  useEffect(() => {
+    // Make sure that data exists before calling this function.
+    getNextLessonName(data);
+  }, [data])
+
   if (isLoading) {
     return (
       <StyledContainer>
@@ -63,8 +70,6 @@ const Topic = ({ navHeight, activeLessonID, getNextLessonName }) => {
   } else if (isError) {
     return <h1>Error!</h1>;
   } else {
-    // Make sure that data exists before calling this function.
-    getNextLessonName(data)
     return (
       <>
         <Sidebar navHeight={navHeight}>
@@ -82,6 +87,20 @@ const Topic = ({ navHeight, activeLessonID, getNextLessonName }) => {
                   </StyledLessonLinkItem>
                 );
               })}
+              {
+                data && 
+                 data.topic_exercises.map((exercise) => {
+                    const {id, exercise_name} = exercise;
+                    return (
+                        <StyledLessonLinkItem
+                        key={id}
+                        id={id}
+                        >
+                            {exercise_name}
+                        </StyledLessonLinkItem>
+                    )
+                 })
+              }
           </StyledLessonLinkList>
         </Sidebar>
       </>
