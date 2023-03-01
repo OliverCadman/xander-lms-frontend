@@ -3,40 +3,30 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
 const Button = styled.button`
     background-color: transparent;
-    color: #202020;
-    padding: 10px 10px;
+    padding: 10px 60px;
     place-items: center;
     border-radius: 50%;
     align-items: centre;
     justify-content: centre;
-    text-transform: uppercase;
-    margin: 40px 50px;
-    font-size: 5rem;
     cursor: pointer;
+    color: white;
     box-shadow: 0px 2px 2px lightgray;
-    border: none;
-    outline: none;
     `;
 
 const buttonStyles = {
-  backgroundColor: 'transparent',
-  color: '#202020',
-  padding: '10px',
-  fontSize: '5rem',
+  background: '-webkit-linear-gradient(180deg, rgba(101,192,135,1) 0%, rgba(29,167,218,1) 100%)',
+  fontSize: '10rem',
   cursor: 'pointer',
   boxShadow: '0px 2px 2px lightgray',
-  border: 'none',
-  outline: 'none'
 }
 
-const ModuleButton = ({theme, id}) => {
-  console.log(id)
-  return (
-    <Link to={`${id}`} theme={theme} style={buttonStyles}><span><FontAwesomeIcon icon={faPlayCircle}/></span></Link>
-  )
-}
+// const ModuleButton = ({theme, id}) => {
+//   console.log(id)
+//   return (
+//     <Link to={`${id}`} <img< src = ./img></Link>
+//   )
+// }
 
-export default ModuleButton
+// export default ModuleButton

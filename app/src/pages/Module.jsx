@@ -30,10 +30,10 @@ const StyledContainer = styled.div`
 
 const StyledTopicWrapper = styled.div`
   width: 100%;
-  max-width: 880px;
+  max-width: 1320px;
   display: grid;
   gap: 2rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   margin: 2rem 0;
 `
 
@@ -70,7 +70,7 @@ const Module = ({navHeight, headerHeight, headerRef}) => {
           <h1>Error</h1>
         ) : (
           <>
-            <Header
+          <Header
               content={data.module_name}
               ref={headerRef}
               fontFamily="DM Serif Display"
