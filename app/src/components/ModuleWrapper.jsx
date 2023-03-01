@@ -28,18 +28,21 @@ const StyledNormalWrapper = styled.div`
   margin: 0 auto;
 `
 
-const ModuleWrapper = ({header, theme, image}) => {
+const ModuleWrapper = ({header, theme, image, id}) => {
+  console.log(id)
   return (
-
+    
     <StyledModuleWrapper>
+   
         <h3>{header}</h3>
         <StyledNormalWrapper> </StyledNormalWrapper>
+        <Link to={`${id}`}>
           <img src="../../src/assets/play-button.png"
                     alt="Modules Page Icon"
                     width="200"
                     height="180">{image}</img> 
-                    <StyledNormalWrapper></StyledNormalWrapper>
-                    <Link to={`${image}`}></Link>
+                    </Link>
+                    
         <Progress_bar bgcolor = "#D9D9D9" progress = 'Not Started' height = {20}/>
     </StyledModuleWrapper>
   )

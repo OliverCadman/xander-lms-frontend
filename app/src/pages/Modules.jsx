@@ -22,64 +22,36 @@ const StyledMainContainer = styled.section`
 `;
 
 const StyledModuleContainer = styled.div`
-    display: grid;
-    column-gap: 60px; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    padding: 6rem;
-    padding-top: 0rem;
-    padding-bottom: 0.2rem;
-    padding-left: 0rem;
-    grid-template-rows: 1fr;
-    font-weight: 300;
-    font-size: 300;
-    place-items: center;
-    align-items: center;
-    font-family: "Roboto", sans-serif;
-    border-top: 1px solid black;
-    border-bottom: 2px solid black;
-    box-sizing: border-box;
-    border-radius: 2px;
-    min-width: fit-content;
+   width: 100%;
+   max-width: 1320px;
+   display: grid;
+   gap: 2rem;
+   grid-template-columns: 1fr 1fr 1fr;
+   margin: 2rem 0;
+
     `;
 
-const StyledHeaderWrapper = styled.header`
+  const StyledModuleCenter = styled.div`
   display: flex;
-  align-items: center;
-  background-color: #e9d2c0;
-  font-family: "Roboto", sans-serif;
-  margin: 0 auto;
-  position: relative;
-  border: 1px solid black;
-  box-sizing: border-box;
-  border-radius: 1.5px;
-  min-width: fit-content;
-  height: 100%;
-  position: relative;
-`;
+  justify-content: center;
 
-const StyledBorderWrapper = styled.header`
-  display: flex;
-  align-items: center;
-  background-color: #e9d2c0;
-  font-family: "Roboto", sans-serif;
-  margin: 0 auto;
-  border-top: 1px solid black;
-  box-sizing: border-box;
-  border-radius: 1.5px;
+  
+  `
+
+const StyledHeaderWrapper = styled.header`
+ padding: 3rem;
 `;
 
 const StyledHeader = styled.h2`
-  font-size: 2.0rem;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  background-color: #e9d2c0;
-  width: 100%;
-  flex: 1;
-  text-align: center;
-`;
-
-const StyledModulesImage = styled.img`
-  height: 110% !important;
+  padding: 1rem;
+  margin: auto 0;
+  font-family: DM Serif Display, sans-serif;
+  color: #1C1C38;
+  font-weight: 700;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
 `;
 
 const StyledH1Wrapper = styled.div`
@@ -114,21 +86,19 @@ const Modules = ({ navHeight }) => {
         <h1>Error....</h1>
       ) : (
         <>
-        <br></br>
-        <br></br>
-        <br></br>
-        <StyledBorderWrapper></StyledBorderWrapper>
           <StyledHeaderWrapper>
             <StyledH1Wrapper>
             <StyledHeader>Modules</StyledHeader>
             </StyledH1Wrapper>
           </StyledHeaderWrapper>
+          <StyledModuleCenter>
           <StyledModuleContainer>
             {data.map((module, image, Progress_bar) => {
-              const { module_name} = module;
+              const { module_name, id} = module;
               return (
                 <ModuleWrapper
                   theme="blue"
+                  id = {id}
                   header={module_name}
                   key = {image}
                   progress={Progress_bar}
@@ -136,6 +106,7 @@ const Modules = ({ navHeight }) => {
               );
             })}
                </StyledModuleContainer>
+               </StyledModuleCenter>
       </>
       )}
     </StyledMainContainer>

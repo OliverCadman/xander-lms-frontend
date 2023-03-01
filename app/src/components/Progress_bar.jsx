@@ -8,6 +8,12 @@ const StyledModuleWrapper = styled.div`
     placeitems: 'centre';
     justifyContent: 'centre';
     textAllign: 'centre';
+    padding-top: 0rem;
+    width: 170%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
     `
 
 const Progress_bar = ({bgcolor, progress, height}) => {
@@ -17,17 +23,20 @@ const Parentdiv = {
 height: height,
 width: '100%',
 borderRadius: 80,
-margin: 40, 
+margin: 10, 
 alignItems: 'centre',
+textAllign: 'centre',
+placecontent: 'centre',
 justifyContent: 'centre',
-placeitems: 'centre'
+placeitems: 'centre',
 
 }
 
 const Childdiv = {
-height: '120%',
+height: '100%',
 width: `${progress}`,
 backgroundColor: bgcolor,
+placecontent: 'centre',
 borderRadius: 80,
 alignItems: 'centre',
 placeitems: 'centre',
@@ -38,24 +47,30 @@ textAllign: 'centre'
 const progresstext = {
 color: 'black',
 alignItems: 'centre',
-placeitems: 'centre',
 fontWeight: 600,
+placeitems: 'centre',
+justifyContent: 'centre',
 textAllign: 'centre'
 
 
 }
 return (
-    <div> <br></br>
+    <StyledModuleWrapper>
+         <div>
+         </div>
      <h4> Progress Bar:</h4>
-     <StyledModuleWrapper>
+     
      <div style = {Parentdiv}>
+
+      
      <div style = {Childdiv}> 
+     
     <span style = {progresstext}>{`${progress}`}</span>
     </div>
-   
+
     </div>
     </StyledModuleWrapper>
-    </div>
+ 
     
 )
 }
