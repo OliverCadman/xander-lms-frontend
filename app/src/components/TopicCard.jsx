@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
+const StyledTopicCardWrapperWrapper = styled.div`
+  border: 1px solid black;
+  padding: 1rem;
+`
+
 const StyledTopicCardWrapper = styled.article`
-  background-color: #fafafa;
+  border: 1px solid black;
   font-family: "Lato", sans-serif;
-  border-radius: 8px;
-  -webkit-box-shadow: 10px 10px 50px -33px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 10px 10px 50px -33px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 10px 50px -10px rgba(0, 0, 0, 0.75);
   max-height: fit-content;
   min-height: 400px;
+  background-color: #D9D9D9;
   position: relative;
 `;
 
@@ -25,11 +27,13 @@ const StyledListItem = styled.li`
 `
 
 const StyledTopicCardHeader = styled.h2`
+  display: flex;
+  justify-content; center;
   font-family: "DM Serif Display", "Lato", sans-serif;
-  background-color: #1c1c38;
-  color: #fafafa;
+  font-size: 30px;
+  background-color: #D9D9D9;
+  color: black;
   padding: 0.35rem 1rem;
-  border-radius: 8px 8px 0 0;
 `;
 
 const linkStyle = {
@@ -53,17 +57,19 @@ const linkStyle = {
 
 const TopicCard = ({topicName, lessons, id, moduleID}) => {
   return (
-    <StyledTopicCardWrapper>
-      <StyledTopicCardHeader>{topicName}</StyledTopicCardHeader>
-      <StyledTopicList>
-        {lessons &&
-          lessons.map((lesson) => {
-            const { id, lesson_name } = lesson;
-            return <StyledListItem key={id}>{lesson_name}</StyledListItem>;
-          })}
-      </StyledTopicList>
-      <a style={linkStyle} href={`${moduleID}/topics/${id}`}>Begin Learning</a>
-    </StyledTopicCardWrapper>
+    <StyledTopicCardWrapperWrapper>
+      <StyledTopicCardWrapper>
+        <StyledTopicCardHeader>{topicName}</StyledTopicCardHeader>
+        <StyledTopicList>
+          {lessons &&
+            lessons.map((lesson) => {
+              const { id, lesson_name } = lesson;
+              return <StyledListItem key={id}>{lesson_name}</StyledListItem>;
+            })}
+        </StyledTopicList>
+        <a style={linkStyle} href={`${moduleID}/topics/${id}`}>Begin Learning</a>
+      </StyledTopicCardWrapper>
+    </StyledTopicCardWrapperWrapper>
   );
 }
 
