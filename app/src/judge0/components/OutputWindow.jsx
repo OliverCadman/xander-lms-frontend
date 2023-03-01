@@ -15,13 +15,12 @@ const StyledOutputWindowWrapper = styled.div`
 `;
 
 const OutputWindow = ({ outputDetails }) => {
-  console.log('OUTPUT DETAILS', outputDetails)
   const getOutput = () => {
     console.log(
       `This is output details${Buffer.from(
         outputDetails.stdout,
         "base64"
-      ).toString("ascii")}`
+      ).toString("utf-8")}`
     );
     let statusId = outputDetails?.status?.id;
 
@@ -30,16 +29,16 @@ const OutputWindow = ({ outputDetails }) => {
       return (
         <pre className="px-2 py-1 font-normal text-xs text-red-500">
           {Buffer.from(outputDetails?.compile_output, "base64").toString(
-            "ascii"
+            "utf-8"
           )}
         </pre>
       );
     } else if (statusId === 3) {
       return (
         <pre className="px-2 py-1 font-normal text-xs text-green-500">
-          {Buffer.from(outputDetails.stdout, "base64").toString("ascii") !==
+          {Buffer.from(outputDetails.stdout, "base64").toString("utf-8") !==
           null
-            ? `${Buffer.from(outputDetails.stdout, "base64").toString("ascii")}`
+            ? `${Buffer.from(outputDetails.stdout, "base64").toString("utf-8")}`
             : null}
         </pre>
       );
@@ -52,7 +51,7 @@ const OutputWindow = ({ outputDetails }) => {
     } else if (statusId === 4) {
       return (
         <pre className="px-2 py-1 font-normal text-xs text-red-500">
-          {Buffer.from(outputDetails.stdout, "base64").toString("ascii")}
+          {Buffer.from(outputDetails.stdout, "base64").toString("utf-8")}
         </pre>
       );
     }
