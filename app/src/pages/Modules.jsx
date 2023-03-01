@@ -24,10 +24,11 @@ const StyledMainContainer = styled.section`
 const StyledModuleContainer = styled.div`
     display: grid;
     column-gap: 60px; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     padding: 6rem;
     padding-top: 0rem;
     padding-bottom: 0.2rem;
+    padding-left: 0rem;
     grid-template-rows: 1fr;
     font-weight: 300;
     font-size: 300;
@@ -56,18 +57,15 @@ const StyledHeaderWrapper = styled.header`
   position: relative;
 `;
 
-const StyledBorderWrapper = styled.div`
+const StyledBorderWrapper = styled.header`
   display: flex;
   align-items: center;
   background-color: #e9d2c0;
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
-  border: 1px solid black;
-  position: relative;
+  border-top: 1px solid black;
   box-sizing: border-box;
   border-radius: 1.5px;
-  position: relative;
-  max-width: fit-content;
 `;
 
 const StyledHeader = styled.h2`
