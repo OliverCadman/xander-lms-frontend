@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import '../assets/css/Loading.css'
 
 import styled from 'styled-components';
@@ -8,11 +8,6 @@ const StyledSVG = styled.svg`
 `;
 
 const Loading = () => {
-    const pathRef = useRef();
-
-    useEffect(() => {
-        console.log(pathRef.current.getTotalLength());
-    }, [])
   return (
     <StyledSVG
       xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +67,10 @@ const Loading = () => {
         </g>
       </g>
       <g>
-        <polygon ref={pathRef} id='polygon' points="181.4 0,181.4 0,0 181.4,0 181.4,101.9 180.1,101.9 180.1,1.2 1.3,1.2 1.3,180.1 1.3  " />
+        <polygon
+          id="polygon"
+          points="21.8,181.4 0,181.4 0,0 181.4,0 181.4,101.9 180.1,101.9 180.1,1.2 1.3,1.2 1.3,180.1 21.8,180.1  "
+        />
       </g>
     </StyledSVG>
   );

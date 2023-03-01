@@ -1,22 +1,45 @@
 import React from "react";
 
+import { Buffer } from "buffer";
+
+import styled from "styled-components";
+
+const StyledOutputWindowWrapper = styled.div`
+  min-height: 20%;
+  font-family: "DM Serif Display", sans-serif;
+  color: #f2f2f0;
+  border: 2px solid #fafafa;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: .5rem;
+`;
+
 const OutputWindow = ({ outputDetails }) => {
+  console.log('OUTPUT DETAILS', outputDetails)
   const getOutput = () => {
-    console.log(`This is output deatails${atob(outputDetails.stdout)}`)
+    console.log(
+      `This is output details${Buffer.from(
+        outputDetails.stdout,
+        "base64"
+      ).toString("ascii")}`
+    );
     let statusId = outputDetails?.status?.id;
 
     if (statusId === 6) {
       // compilation error
       return (
         <pre className="px-2 py-1 font-normal text-xs text-red-500">
-          {atob(outputDetails?.compile_output)}
+          {Buffer.from(outputDetails?.compile_output, "base64").toString(
+            "ascii"
+          )}
         </pre>
       );
     } else if (statusId === 3) {
       return (
         <pre className="px-2 py-1 font-normal text-xs text-green-500">
-          {atob(outputDetails.stdout) !== null
-            ? `${atob(outputDetails.stdout)}`
+          {Buffer.from(outputDetails.stdout, "base64").toString("ascii") !==
+          null
+            ? `${Buffer.from(outputDetails.stdout, "base64").toString("ascii")}`
             : null}
         </pre>
       );
@@ -26,23 +49,23 @@ const OutputWindow = ({ outputDetails }) => {
           {`Time Limit Exceeded`}
         </pre>
       );
-    } else {
+    } else if (statusId === 4) {
       return (
         <pre className="px-2 py-1 font-normal text-xs text-red-500">
-          {atob(outputDetails?.stderr)}
+          {Buffer.from(outputDetails.stdout, "base64").toString("ascii")}
         </pre>
       );
     }
   };
   return (
-    <>
+    <StyledOutputWindowWrapper>
       <h1 className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 mb-2">
-        Output
+        Output:
       </h1>
       <div className="w-full h-full bg-[#212529] rounded-md text-white font-normal text-sm overflow-y-auto">
         {outputDetails ? <>{getOutput()}</> : null}
       </div>
-    </>
+    </StyledOutputWindowWrapper>
   );
 };
 

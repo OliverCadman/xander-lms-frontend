@@ -11,7 +11,7 @@ export const loadKlipseScript = (callback) => {
     document.head.appendChild(script);
     
     script.onload = () => {
-      if (callback) callback();
+      if (callback) return callback();
     }
   }
   

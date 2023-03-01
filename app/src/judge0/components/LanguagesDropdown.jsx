@@ -9,7 +9,7 @@ const LanguagesDropdown = ({ onSelectChange }) => {
       placeholder={`Filter By Category`}
       options={languageOptions}
       styles={customStyles}
-      defaultValue={languageOptions[37]}
+      defaultValue={languageOptions[0]}
       onChange={(selectedOption) => onSelectChange(selectedOption)}
     />
   );

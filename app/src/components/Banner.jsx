@@ -7,6 +7,9 @@ const StyledBannerWrapper = styled.header`
   justify-content: center;
   background-color: #1C1C38;
   padding: 1.2875rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
 `;
 
 const StyledSVG = styled.svg`

@@ -25,14 +25,14 @@ export const testquestions = [
         id : 4,
         excercise_name : 'Largest Number',
         excercise_description : 'Given a list, find the largest number. list [21,43,65,6,32,7] should return 65',
-        starter_code : 'def findLargest():',
+        starter_code : 'function findLargest(){\n\n}',
         expected_output : '65'
     },
     {
         id : 5,
         excercise_name : 'Unique name list',
         excercise_description : 'Implement the unique_names method. When passed two arrays of names, it will return an array containing the names that appear in either or both arrays. The returned array should have no duplicates names1 = ["Ava", "Emma", "Olivia"] names2 = ["Olivia", "Sophia", "Emma"] print(unique_names(names1, names2)) # should print Ava, Emma, Olivia, Sophia',
-        starter_code : 'def unique_name():',
+        starter_code : 'function uniqueName(){\n}:',
         expected_output : '[Ava, Emma, Olivia, Sophia]'
 
     }
