@@ -3,10 +3,10 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Topic from '../pages/Topic';
 
-const SharedLayoutLesson = ({navHeight}) => {
+const SharedLayoutLesson = ({ navHeight, activeLessonID, getNextLessonName }) => {
   return (
     <>
-      <Topic navHeight={navHeight} />
+      <Topic navHeight={navHeight} activeLessonID={activeLessonID} getNextLessonName={getNextLessonName} />
       <Outlet />
     </>
   );

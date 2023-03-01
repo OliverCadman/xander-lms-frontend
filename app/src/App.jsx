@@ -13,7 +13,7 @@ import Module from "./pages/Module";
 import LessonWindow from "./components/LessonWindow";
 
 import { useLocation } from "react-router-dom";
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import { useAuth } from "./context/AuthContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -21,12 +21,11 @@ import { Routes, Route } from "react-router-dom";
 
 import LessonBuilder from "./admin/LessonBuilder";
 
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
@@ -39,12 +38,40 @@ function App() {
 function InnerApp() {
   const [navHeight, setNavHeight] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [activeLessonID, setActiveLessonID] = useState(null);
+  const [nextLessonName, setNextLessonName] = useState(null);
 
   const { token, redirect } = useAuth();
   const navRef = createRef();
   const headerRef = createRef();
 
   const location = useLocation();
+
+   const getLessonID = (id) => {
+     // Lesson ID is shared between Sidebar in <SharedLayoutLesson />
+     // and the <LessonWindow /> components.
+     setActiveLessonID(id);
+   };
+
+   const getNextLessonName = (lessonData) => {
+     console.log(lessonData);
+     // Retrieve name of next lesson to display in Lesson Window
+     let lessonName;
+     const maxID = Math.max(...lessonData.lessons.map((lesson) => lesson.id));
+
+     if (activeLessonID < maxID) {
+       const nextLessonDetails = lessonData.lessons.find(
+         (lesson) => lesson.id === parseInt(activeLessonID) + 1
+       );
+       lessonName = nextLessonDetails.lesson_name;
+     } else {
+       lessonName = "Move onto the next section";
+     }
+
+     setNextLessonName(lessonName);
+   }
+
+   
 
   useEffect(() => {
     if (navRef.current) {
@@ -102,9 +129,18 @@ function InnerApp() {
             />
             <Route
               path="modules/:moduleID/topics/:topicID/lessons/*"
-              element={<SharedLayoutLesson navHeight={navHeight} />}
+              element={
+                <SharedLayoutLesson
+                  activeLessonID={activeLessonID}
+                  navHeight={navHeight}
+                  getNextLessonName={getNextLessonName}
+                />
+              }
             >
-                <Route path=":lessonID" element={<LessonWindow />} />
+              <Route
+                path=":lessonID"
+                element={<LessonWindow getLessonID={getLessonID} nextLessonName={nextLessonName }/>}
+              />
             </Route>
             <Route
               path="admin/lesson-builder"

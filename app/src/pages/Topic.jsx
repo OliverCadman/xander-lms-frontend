@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../admin/Sidebar";
 import Loading from "../components/Loading";
 import { useQuery } from "@tanstack/react-query";
@@ -10,8 +10,6 @@ import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
 import styled from "styled-components";
-
-import { Outlet } from "react-router-dom";
 
 const StyledContainer = styled.div`
   min-height: 100%;
@@ -29,13 +27,14 @@ const StyledLessonLinkList = styled.ul`
 const StyledLessonLinkItem = styled.li`
     font-family: 'Lato', sans-serif;
     padding: 2rem 1rem;
-    background-color: ${props => {
-        return props.activeLessonID === props.id ? "#a8a8a8;" : ""; 
+    background-color: ${(props) => {
+      return parseInt(props.activeLessonID) === props.id ? "#e9d2c060;" : "";
     }}
-    color: ${props => props.activeLessonID === props.id ? '#fff': ''};
-`
+    box-shadow: inset 2px 0 10px 0 rgba(0, 0, 0, 0.5);
+    color: ${(props) => (props.activeLessonID === props.id ? "#fff" : "")};
+`;
 
-const Topic = ({ navHeight, lessons }) => {
+const Topic = ({ navHeight, activeLessonID, getNextLessonName }) => {
   const { topicID } = useParams();
   const { token } = useAuth();
 
@@ -55,7 +54,6 @@ const Topic = ({ navHeight, lessons }) => {
     },
   });
 
-
   if (isLoading) {
     return (
       <StyledContainer>
@@ -65,20 +63,27 @@ const Topic = ({ navHeight, lessons }) => {
   } else if (isError) {
     return <h1>Error!</h1>;
   } else {
+    // Make sure that data exists before calling this function.
+    getNextLessonName(data)
     return (
       <>
         <Sidebar navHeight={navHeight}>
           <StyledLessonLinkList>
-            {data && data.lessons.map((lesson) => {
-              const { lesson_name, id } = lesson;
-                  return (
-                    <StyledLessonLinkItem key={id} id={id}>
-                      {lesson_name}
-                    </StyledLessonLinkItem>
-                  );
-            })}
+            {data &&
+              data.lessons.map((lesson) => {
+                const { lesson_name, id } = lesson;
+                return (
+                  <StyledLessonLinkItem
+                    key={id}
+                    id={id}
+                    activeLessonID={activeLessonID}
+                  >
+                    {lesson_name}
+                  </StyledLessonLinkItem>
+                );
+              })}
           </StyledLessonLinkList>
-        </Sidebar>      
+        </Sidebar>
       </>
     );
   }

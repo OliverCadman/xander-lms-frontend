@@ -67,53 +67,55 @@ const StyledContinueButton = styled.button`
   cursor: pointer;
   transition: 500ms all ease-in-out;
   width: 50%;
-  textDe
-
-  &:hover {
+  textDe &:hover {
     background-color: #3c74ef;
   }
 `;
 
 const continueLinkStyles = {
   backgroundColor: "#3c83ef",
-  borderRadius: '4px',
-  padding: '0.5rem 2.3rem',
-  border: 'none',
-  fontSize: '1.45rem',
+  borderRadius: "4px",
+  padding: "0.5rem 2.3rem",
+  border: "none",
+  fontSize: "1.45rem",
   fontFamily: "'Lato', sans-serif",
-  color: '#fafafa',
-  cursor: 'pointer',
-  transition: '500ms all ease-in-out',
-  width: '50%',
-  textDecoration: 'none'
+  color: "#fafafa",
+  cursor: "pointer",
+  transition: "500ms all ease-in-out",
+  width: "50%",
+  textDecoration: "none",
+  textAlign: 'center'
 };
 
 const StyledIconSpan = styled.span`
   margin-left: 1rem;
 `;
 
-const LessonWindow = ({ showNextLesson }) => {
+const LessonWindow = ({ nextLessonName, getLessonID }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  const { lessonID, topicId, moduleID } = useParams();
-  console.log(useParams());
+  const { lessonID } = useParams();
+
   const { token } = useAuth();
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
-        loadKlipseScript();
+      loadKlipseScript();
     }, 500);
-    setScriptLoaded((prevState) => !prevState); 
+    setScriptLoaded((prevState) => !prevState);
 
     return () => clearTimeout(timeOut);
   }, []);
 
-  console.log('Script Loaded?', scriptLoaded)
   const headers = {
     headers: {
       Authorization: `Token ${token}`,
     },
   };
+
+  useEffect(() => {
+    getLessonID(lessonID);
+  }, []);
 
   const url = `${BASE_API_URL}/lessons/lessons/${lessonID}`;
   const { data, isLoading, isError } = useQuery({
@@ -168,7 +170,14 @@ const LessonWindow = ({ showNextLesson }) => {
           })}
         </article>
         <StyledButtonWrapper>
-          <a href={`${parseInt(lessonID) + 1}`}>
+          <StyledFooterParagraph>{
+            nextLessonName !== 'Move onto the next section' ? (
+                    `Next up: ${nextLessonName}`
+            ) : (
+                'Move onto the next section.'
+            )
+          }</StyledFooterParagraph>
+          <a style={continueLinkStyles} href={`${parseInt(lessonID) + 1}`}>
             Continue
             <StyledIconSpan>
               <FontAwesomeIcon icon={faChevronCircleRight} />
