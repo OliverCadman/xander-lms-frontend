@@ -36,6 +36,7 @@ const StyledButtonWrapper = styled.header`
   justify-content: space-around;
   align-items: center;
   margin-bottom: 1rem;
+  padding-top: 1rem;
   border-bottom: 3px solid #aaa;
 `;
 
@@ -61,7 +62,7 @@ const StyledExerciseHeader = styled.h1`
 const javascriptDefault = ``;
 
 const Landing = () => {
-  const [code, setCode] = useState(javascriptDefault);
+  const [exerciseData, setExerciseData] = useState({})
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState("cobalt");
@@ -79,7 +80,7 @@ const Landing = () => {
   const onChange = (action, data) => {
     switch (action) {
       case "code": {
-        setCode(data);
+        setExerciseData({...exerciseData, starter_code: data})
         break;
       }
       default: {
@@ -90,14 +91,14 @@ const Landing = () => {
   const handleCompile = () => {
     setProcessing(true);
     {
-      console.log(`This is the expected output ${expected_output}`);
+      console.log(`This is the expected output ${exerciseData.expected_output}`);
     }
     const formData = {
       language_id: language.id,
       // encode source code in base64
-      source_code: Buffer.from(code).toString("base64"),
+      source_code: Buffer.from(exerciseData.starter_code).toString("base64"),
       // stdin: btoa(customInput),
-      expected_output: Buffer.from(expected_output).toString("base64"),
+      expected_output: Buffer.from(exerciseData.expected_output).toString("base64"),
     };
 
     const options = {
@@ -106,16 +107,17 @@ const Landing = () => {
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "content-type": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       data: formData,
     };
+
+    console.log(formData.source_code)
     axios
       .request(options)
       .then(function (response) {
         //expected output
         const token = response.data.token;
-        console.log(token);
         checkStatus(token);
       })
       .catch((err) => {
@@ -151,7 +153,17 @@ const Landing = () => {
       } else {
         setProcessing(false);
         setOutputDetails(response.data);
-        showSuccessToast(`Compiled Successfully!`);
+                console.log(
+                  "The expected output is...",
+                  Buffer.from(response.data.expected_output, "base64").toString("utf-8")
+                );
+        if (statusId === 3) {
+            showSuccessToast(`Compiled Successfully!`);
+            return;
+        } else if (statusId === 4) {
+          showErrorToast('Incorrect answer. Try again!');
+          return;
+        }
         console.log("This is the response data", response.data);
         return;
       }
@@ -203,66 +215,83 @@ const Landing = () => {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      setExerciseData({
+        ...exerciseData,
+        starter_code: data.exercise_starter_code,
+        expected_output: data.expected_output_code,
+        description_text: data.exercise_textblocks
+      });
+    }
+  }, [data])
+
   if (isLoading) {
     return (
-
-    )
-  }
-
-  return (
-    <>
       <StyledEditorContainer>
-        <StyledButtonWrapper>
-          <StyledExerciseHeader>
-            {testQuestions[3].excercise_name}
-          </StyledExerciseHeader>
-          <button
-            style={{
-              boxShadow: "5px 5px 0px 0px rgba(0,0,0)",
-              ":hover": {
-                border: "2px solid #000000",
-                boxShadow: "none",
-              },
-              width: "100%",
-              maxWidth: "14rem",
-              minWidth: "12rem",
-              borderRadius: "5px",
-              color: "#000",
-              fontSize: "0.8rem",
-              lineHeight: "1.75rem",
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-              border: "2px solid #000000",
-              margin: "0 1rem 1rem 0",
-            }}
-            onClick={handleCompile}
-            disabled={!code}
-            className={classnames(
-              "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
-              !code ? "opacity-50" : ""
-            )}
-          >
-            {processing ? "Processing..." : "Compile and Execute"}
-          </button>
-        </StyledButtonWrapper>
-        <StyledEditorWrapper>
-          <StyledExerciseOverviewWrapper>
-            <TestQuestions testQuestions={testQuestions} />
-            <OutputWindow outputDetails={outputDetails} />
-            <OutputDetails outputDetails={outputDetails} />
-          </StyledExerciseOverviewWrapper>
-          <StyledExerciseEditorWrapper>
-            <CodeEditorWindow
-              testQuestions={testQuestions}
-              code={code}
-              onChange={onChange}
-              language={language?.value}
-              theme={theme.value}
-            />
-          </StyledExerciseEditorWrapper>
-        </StyledEditorWrapper>
+        <Loading />
       </StyledEditorContainer>
-    </>
-  );
+    )
+  } else if (isError) {
+    return <StyledEditorContainer>
+      <h1>Error, sorry.</h1>
+    </StyledEditorContainer>
+  } else {
+     return (
+       <>
+         <StyledEditorContainer>
+           <StyledButtonWrapper>
+             <StyledExerciseHeader>
+               {data.exercise_name}
+             </StyledExerciseHeader>
+             <button
+               style={{
+                 boxShadow: "5px 5px 0px 0px rgba(0,0,0)",
+                 ":hover": {
+                   border: "2px solid #000000",
+                   boxShadow: "none",
+                 },
+                 width: "100%",
+                 maxWidth: "14rem",
+                 minWidth: "12rem",
+                 borderRadius: "5px",
+                 color: "#000",
+                 fontSize: "0.8rem",
+                 lineHeight: "1.75rem",
+                 backgroundColor: "#FFFFFF",
+                 cursor: "pointer",
+                 border: "2px solid #000000",
+                 margin: "0 1rem 1rem 0",
+               }}
+               onClick={handleCompile}
+               disabled={!exerciseData.starter_code}
+               className={classnames(
+                 "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
+                 !exerciseData.starter_code ? "opacity-50" : ""
+               )}
+             >
+               {processing ? "Processing..." : "Compile and Execute"}
+             </button>
+           </StyledButtonWrapper>
+           <StyledEditorWrapper>
+             <StyledExerciseOverviewWrapper>
+               <TestQuestions descriptionText={exerciseData.description_text} />
+               <OutputWindow outputDetails={outputDetails} />
+               <OutputDetails outputDetails={outputDetails} />
+             </StyledExerciseOverviewWrapper>
+             <StyledExerciseEditorWrapper>
+               <CodeEditorWindow
+                 testQuestions={testQuestions}
+                 code={exerciseData.starter_code}
+                 onChange={onChange}
+                 language={language?.value}
+                 theme={theme.value}
+               />
+             </StyledExerciseEditorWrapper>
+           </StyledEditorWrapper>
+         </StyledEditorContainer>
+       </>
+     );
+  }
 };
 export default Landing;

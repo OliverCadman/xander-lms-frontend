@@ -12,8 +12,9 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        padding-top: ${props => `${props.navHeight}px`}
-    
+        padding-top: ${props => {
+            return `92.203125px`;
+        }}
     }
 `;
 
