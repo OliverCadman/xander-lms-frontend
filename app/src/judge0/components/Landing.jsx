@@ -203,12 +203,6 @@ const Landing = () => {
     },
   });
 
-  if (isLoading) {
-    return (
-
-    )
-  }
-
   return (
     <>
       <StyledEditorContainer>
