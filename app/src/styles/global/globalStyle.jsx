@@ -12,8 +12,9 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        padding-top: 92.203125px;
-    
+        padding-top: ${props => {
+            return `92.203125px`;
+        }}
     }
 `;
 
