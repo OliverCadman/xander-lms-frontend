@@ -107,7 +107,7 @@ const Landing = () => {
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "content-type": "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       data: formData,
     };
@@ -137,7 +137,7 @@ const Landing = () => {
     const options = {
       method: "GET",
       url: "https://judge0-ce.p.rapidapi.com/submissions" + "/" + token,
-      params: { base64_encoded: "true", fields: "*" },
+      params: { base64_encoded: "true", fields: "*" }
     };
     try {
       let response = await axios.request(options);
@@ -158,7 +158,7 @@ const Landing = () => {
                   Buffer.from(response.data.expected_output, "base64").toString("utf-8")
                 );
         if (statusId === 3) {
-            showSuccessToast(`Compiled Successfully!`);
+            showSuccessToast(`You are correct!`);
             return;
         } else if (statusId === 4) {
           showErrorToast('Incorrect answer. Try again!');

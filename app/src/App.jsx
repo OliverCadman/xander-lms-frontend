@@ -62,7 +62,7 @@ function InnerApp() {
            const maxID = Math.max(...lessonData.lessons.map((lesson) => lesson.id));
            const maxExerciseID = Math.max(...lessonData.topic_exercises.map((exercise) => exercise.id));
 
-     if (activeLessonID < maxID) {
+     if (parseInt(activeLessonID) < maxID) {
        const nextLessonDetails = lessonData.lessons.find(
          (lesson) => lesson.id === parseInt(activeLessonID) + 1
        );
@@ -71,8 +71,14 @@ function InnerApp() {
 
      } else if (maxID) {
        const exerciseDetails = lessonData.topic_exercises.find(exercise => exercise.id === maxExerciseID);
-       if (exerciseDetails) lessonName = exerciseDetails.exercise_name;
+       if (exerciseDetails) {
+        lessonName = exerciseDetails.exercise_name;
+       } else {
+        lessonName = "Move onto the next section";
+       }
   
+     } else if (parseInt(activeLessonID) === maxID) {
+       lessonName = "Move onto the next section";
      } else {
        lessonName = "Move onto the next section";
      }
@@ -140,6 +146,7 @@ function InnerApp() {
               element={
                 <SharedLayoutLesson
                   activeLessonID={activeLessonID}
+                  activeExerciseID={activeExerciseID}
                   navHeight={navHeight}
                   getNextLessonName={getNextLessonName}
                 />
