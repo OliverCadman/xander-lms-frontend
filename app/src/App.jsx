@@ -17,6 +17,8 @@ import { ToastContainer } from "react-toastify";
 import { useAuth } from "./context/AuthContext";
 import { AuthProvider } from "./context/AuthContext";
 
+import { toast } from "react-toastify";
+
 import { Routes, Route } from "react-router-dom";
 
 import LessonBuilder from "./admin/LessonBuilder";
@@ -97,6 +99,20 @@ function InnerApp() {
       setHeaderHeight(headerRectHeight);
     }
   }, [redirect, location]);
+
+  useEffect(() => {
+    if (redirect) {
+            toast.success(`Thanks for stopping by!`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+    }
+  }, [redirect])
 
   return (
     <>
