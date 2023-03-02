@@ -28,13 +28,13 @@ const StyledLessonLinkItem = styled.li`
     font-family: 'Lato', sans-serif;
     padding: 2rem 1rem;
     background-color: ${(props) => {
-      return parseInt(props.activeLessonID) === props.id ? "#e9d2c030;" : "";
+      return parseInt(props.activeLessonID) === props.id || props.activeExerciseID === props.id ? "#e9d2c030;" : "";
     }}
     box-shadow: inset 2px 0 5px 0 rgba(0, 0, 0, 0.5);
     color: ${(props) => (props.activeLessonID === props.id ? "#fff" : "")};
 `;
 
-const Topic = ({ navHeight, activeLessonID, getNextLessonName, getExerciseIDs }) => {
+const Topic = ({ navHeight, activeLessonID, getNextLessonName, activeExerciseID }) => {
   const { topicID } = useParams();
   const { token } = useAuth();
 
@@ -82,6 +82,7 @@ const Topic = ({ navHeight, activeLessonID, getNextLessonName, getExerciseIDs })
                     key={id}
                     id={id}
                     activeLessonID={activeLessonID}
+             
                   >
                     {lesson_name}
                   </StyledLessonLinkItem>
@@ -92,13 +93,14 @@ const Topic = ({ navHeight, activeLessonID, getNextLessonName, getExerciseIDs })
                  data.topic_exercises.map((exercise) => {
                     const {id, exercise_name} = exercise;
                     return (
-                        <StyledLessonLinkItem
+                      <StyledLessonLinkItem
                         key={id}
                         id={id}
-                        >
-                            {exercise_name}
-                        </StyledLessonLinkItem>
-                    )
+                        activeExerciseID={activeExerciseID}
+                      >
+                        {exercise_name}
+                      </StyledLessonLinkItem>
+                    );
                  })
               }
           </StyledLessonLinkList>

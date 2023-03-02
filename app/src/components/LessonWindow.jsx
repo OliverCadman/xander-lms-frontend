@@ -39,6 +39,7 @@ const StyledLessonContainer = styled.section`
 const StyledLessonMainHeader = styled.h1`
   text-align: center;
   font-family: "DM Serif Display", "Lato", sans-serif;
+  font-size: 2.875rem;
 `;
 
 const StyledTextblockWrapper = styled.div`
@@ -56,21 +57,6 @@ const StyledHeader2 = styled.h2`
   font-size: 1.875rem;
 `;
 
-const StyledContinueButton = styled.button`
-  background-color: #3c83ef;
-  border-radius: 4px;
-  padding: 0.5rem 2.3rem;
-  border: none;
-  font-size: 1.45rem;
-  font-family: "Lato", sans-serif;
-  color: #fafafa;
-  cursor: pointer;
-  transition: 500ms all ease-in-out;
-  width: 50%;
-  textDe &:hover {
-    background-color: #3c74ef;
-  }
-`;
 
 const continueLinkStyles = {
   backgroundColor: "#3c83ef",
@@ -84,7 +70,8 @@ const continueLinkStyles = {
   transition: "500ms all ease-in-out",
   width: "50%",
   textDecoration: "none",
-  textAlign: 'center'
+  textAlign: 'center',
+  marginTop: '1.5rem'
 };
 
 const StyledIconSpan = styled.span`
@@ -123,6 +110,7 @@ const LessonWindow = ({ nextLessonName, getLessonID, activeExerciseID }) => {
     queryKey: ["lesson"],
     queryFn: async () => {
       return axios.get(url, headers).then((res) => {
+        console.log(res.data)
         return res.data;
       });
     },
