@@ -110,7 +110,6 @@ const LessonWindow = ({ nextLessonName, getLessonID, activeExerciseID }) => {
     queryKey: ["lesson"],
     queryFn: async () => {
       return axios.get(url, headers).then((res) => {
-        console.log(res.data)
         return res.data;
       });
     },
